@@ -1,0 +1,153 @@
+{
+  "info": {
+    "_postman_id": "53ee8c35-0da3-4f24-8b39-e2bb13ba643d",
+    "name": "PayPal",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "11446859",
+    "_collection_link": "https://go.postman.co/collection/11446859-53ee8c35-0da3-4f24-8b39-e2bb13ba643d?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "ACCESS TOKEN",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "key": "saveHelperData",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "key": "showPassword",
+              "value": false,
+              "type": "boolean"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "grant_type",
+              "value": "client_credentials",
+              "type": "text",
+              "uuid": "cc7a42ac-77f7-4c8f-bb25-afff8c7affaf"
+            }
+          ]
+        },
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v1/oauth2/token",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v1",
+            "oauth2",
+            "token"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "CREAR ORDEN",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer ",
+            "type": "text"
+          },
+          {
+            "key": "PayPal-Request-Id",
+            "value": "1",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"intent\": \"CAPTURE\",\r\n  \"payment_source\": {\r\n    \"paypal\": {\r\n      \"experience_context\": {\r\n        \"payment_method_preference\": \"IMMEDIATE_PAYMENT_REQUIRED\",\r\n        \"user_action\": \"PAY_NOW\",\r\n        \"return_url\": \"http://localhost/academia/web/student?ref=12345678\",\r\n        \"cancel_url\": \"http://localhost/academia/web/checkout\"\r\n      }\r\n    }\r\n  },\r\n  \"purchase_units\": [\r\n    {\r\n      \"reference_id\": \"12345678\",\r\n      \"amount\": {\r\n        \"currency_code\": \"USD\",\r\n        \"value\": \"19.98\"\r\n        }\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v2/checkout/orders",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v2",
+            "checkout",
+            "orders"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "CONFIRMAR PAGO",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer ",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v2/checkout/orders/7CS795246E2570848",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v2",
+            "checkout",
+            "orders",
+            "7CS795246E2570848"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

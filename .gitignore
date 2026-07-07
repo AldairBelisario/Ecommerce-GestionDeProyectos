@@ -1,0 +1,35 @@
+# Dependencies
+api/vendor/
+cms/extensions/vendor/
+web/views/assets/js/vendor/
+
+# Media files
+*.mp4
+*.avi
+*.mov
+*.wmv
+*.flv
+*.mkv
+*.webm
+*.zip
+*.rar
+*.7z
+*.tar.gz
+
+# Logs
+*.log
+php_error_log
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Environment
+.env
